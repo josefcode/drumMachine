@@ -3,39 +3,55 @@ import React, {useState} from 'react'
 import './app.css'
 
 const initialSate = `
-# Welcome to my React Markdown Previewer!
-
-## This is a sub-heading...
-### And here's some other cool stuff:
 
 
+# Welcome
+## Enjoy typing
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
 
-You can also make text **bold**... whoa!
-Or _italic_.
-Or... wait for it... **_both!_**
-And feel free to go crazy ~~crossing stuff out~~.
+### List
 
-There's also [links](https://www.freecodecamp.org), and
-> Block Quotes!
+- list item one
+- list item two
+- list item three
 
-And if you want to get really crazy, even tables:
+### Links
 
-Wild Header | Crazy Header | Another Header?
------------- | ------------- | -------------
-Your content can | be here, and it | can be here....
-And here. | Okay. | I think we get it.
+[FreeCodeCamp](https://learn.freecodecamp.org)
 
-- And of course there are lists.
-  - Some are bulleted.
-     - With different indentation levels.
-        - That look like this.
+[Google](https://www.google.com "World's Most Popular Search Engine")
 
+### Text Decorations
 
-1. And there are numbered lists too.
-1. Use just 1s if you want!
-1. And last but not least, let's not forget embedded images:
+*italic*
 
-![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
+**bold**
+
+***bold and italic***
+
+### Images
+
+![alt text](https://picsum.photos/id/237/400/300 'black dog')
+
+### Blockquote
+
+> To be, or not to be. That is a stupid question.
+
+### Code
+
+\`npm install create-react-app -g\`
+
+\`\`\`
+function addTwoNumbers(a, b) {
+  return a + b
+}
+const name = 'Benjamin'
+const age = 37
+const number = Math.random() * 10
+\`\`\`
 `
 function App() {
   const [state, setState] = useState({markDown: initialSate})

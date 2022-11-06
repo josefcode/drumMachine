@@ -88,7 +88,7 @@ function App() {
  
   return (
     <>
-    <h1 className='title'>Drum Machine</h1>
+    <h1 className='title'>Drum Machine Project</h1>
       <div id="drum-machine" className="container">
         <div className = "pad-bank">
          <div id="display">

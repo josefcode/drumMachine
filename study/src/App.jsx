@@ -1,80 +1,105 @@
-import {marked} from 'marked'
+
 import React, {useState} from 'react'
 import './app.css'
+import DrumpPad from './components/DrumpPad'
 
-const initialSate = `
-
-
-# Welcome
-## Enjoy typing
-### Header 3
-#### Header 4
-##### Header 5
-###### Header 6
-
-### List
-
-- list item one
-- list item two
-- list item three
-
-### Links
-
-[FreeCodeCamp](https://learn.freecodecamp.org)
-
-[Google](https://www.google.com "World's Most Popular Search Engine")
-
-### Text Decorations
-
-*italic*
-
-**bold**
-
-***bold and italic***
-
-### Images
-
-![alt text](https://picsum.photos/id/237/400/300 'black dog')
-
-### Blockquote
-
-> To be, or not to be. That is a stupid question.
-
-### Code
-
-\`npm install create-react-app -g\`
-
-\`\`\`
-function addTwoNumbers(a, b) {
-  return a + b
-}
-const name = 'Benjamin'
-const age = 37
-const number = Math.random() * 10
-\`\`\`
-`
 function App() {
-  const [state, setState] = useState({markDown: initialSate})
 
-  function handelChange(e) {
-    setState({markDown: e.target.value})
-  }
+  const [textOutput, setTextOutput] = useState('');
+
+  const keyboards = [
+     {
+      letter: 'Q',
+      id : 'Heater-1',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+     },
+     {
+      letter: 'W',
+      id : 'Heater-2',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"
+     },
+     {
+      letter: 'E',
+      id : 'Heater-3',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"
+     },
+     {
+      letter: 'A',
+      id : 'Heater-4',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"
+     },
+     {
+      letter: 'S',
+      id : 'Clap',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"
+     },
+     {
+      letter: 'D',
+      id : 'Open-HH',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"
+     },
+     {
+      letter: 'Z',
+      id : "Kick-n'-Hat",
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"
+     },
+     {
+      letter: 'X',
+      id : 'Kick',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"
+     },
+     {
+      letter: 'C',
+      id : 'Closed-HH',
+      audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+     },
+
+  ]
+
+  function handelClick(e) {
+      const audio = e.target.firstElementChild
+      const discription = audio.parentElement
+
+      setTextOutput(discription.id)
+      audio.play()
+      
+    }
+
+  function handleKeyDown(e) {
+      const id = e.key.toUpperCase()
+      const audio = document.getElementById(id);
+       
+      if(audio){
+        const discription = audio.parentElement
+        setTextOutput(discription.id)
+
+        discription.classList.add("active")
+        audio.play()
+    
+        audio.addEventListener('ended', () => {
+        discription.classList.remove('active')
+
+          })
+        }
+        else {
+          null
+        }
+      }
+ 
   return (
     <>
-     <h1 className='title'>Mark Down project</h1>
-    <div className='container'>
-    
-     <div className='left' >
-    
-     <textarea id = "editor"value = {state.markDown} onChange ={handelChange}/>
- 
+    <h1 className='title'>Drum Machine</h1>
+      <div id="drum-machine" className="container">
+        <div className = "pad-bank">
+         <div id="display">
+          {
+            keyboards.map(item=> <DrumpPad key = {item.id} onclick = {handelClick} id = {item.id} keyboard={item.letter} audio = {item.audio} onkeydown = {handleKeyDown} 
+            />)
+          }
+          <p id = "display" className='display'>{textOutput}&nbsp;</p>
+         </div>
+         </div>
       </div>
-
-      <div className='right'>
-
-      <div id="preview" dangerouslySetInnerHTML={{__html:marked(state.markDown) }} /> 
-     </div>
-     </div>
     </>
   )
 }
